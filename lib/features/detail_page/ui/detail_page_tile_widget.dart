@@ -1,29 +1,20 @@
+import 'package:bloc_example_1/features/home/models/home_product_data_model.dart';
 import 'package:flutter/material.dart';
-import '../../home/models/home_product_data_model.dart';
-import '../bloc/cart_bloc.dart';
 
-class CartTileWidget extends StatelessWidget {
+class DetailPageTile extends StatelessWidget {
   final ProductDataModel productDataModel;
-  final CartBloc cartBloc;
-  const CartTileWidget({
-    super.key,
-    required this.productDataModel,
-    required this.cartBloc,
-  });
+  const DetailPageTile({super.key, required this.productDataModel});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.grey.shade300)),
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+         
           Container(
-            height: 200,
+            height: 180,
             width: double.maxFinite,
             decoration: BoxDecoration(
                 image: DecorationImage(
@@ -41,21 +32,19 @@ class CartTileWidget extends StatelessWidget {
             children: [
               Text('\$${productDataModel.price}',
                   style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold)), 
+                      fontSize: 18, fontWeight: FontWeight.bold)),
               Row(
                 children: [
                   IconButton(
                       onPressed: () {
-                        cartBloc.add(CartItemAddToWishlistEvent(
-                            productDataModel: productDataModel));
+                       
                       },
                       icon: const Icon(Icons.favorite_border)),
                   IconButton(
                       onPressed: () {
-                        cartBloc.add(CartRemoveFromCartEvent(
-                            productDataModel: productDataModel));
+                      
                       },
-                      icon: const Icon(Icons.delete)),
+                      icon: const Icon(Icons.shopping_bag_outlined)),
                 ],
               )
             ],

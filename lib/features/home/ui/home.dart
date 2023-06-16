@@ -1,4 +1,5 @@
 import 'package:bloc_example_1/features/cart/ui/cart.dart';
+import 'package:bloc_example_1/features/detail_page/ui/detail_page.dart';
 import 'package:bloc_example_1/features/home/ui/product_tile_widget.dart';
 import 'package:bloc_example_1/features/wishlist/ui/wishlist.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,13 @@ class _HomeState extends State<Home> {
         } else if (state is HomeProductItemCartedActionState) {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Item added to cart')));
+        } else if (state is HomeNavigateToProductDetailPageActonState) {
+          final detailPageState = state;
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailPage(
+                      productDataModel: detailPageState.productDataModel)));
         }
       },
       builder: (context, state) {
@@ -60,7 +68,9 @@ class _HomeState extends State<Home> {
                       onPressed: () {
                         homebloc.add(HomeWishlistButtonNavigateEvent());
                       },
-                      icon: const Icon(Icons.favorite_border)),
+                      icon: const Icon(
+                        Icons.favorite_border,
+                      )),
                   IconButton(
                       onPressed: () {
                         homebloc.add(HomeCartButtonNavigateEvent());

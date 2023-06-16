@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import '../../home/models/home_product_data_model.dart';
-import '../bloc/cart_bloc.dart';
+import '../bloc/wishlist_bloc.dart';
 
-class CartTileWidget extends StatelessWidget {
+class WishlistTileWidget extends StatelessWidget {
   final ProductDataModel productDataModel;
-  final CartBloc cartBloc;
-  const CartTileWidget({
+  final WishlistBloc wishlistBloc;
+  const WishlistTileWidget({
     super.key,
     required this.productDataModel,
-    required this.cartBloc,
+    required this.wishlistBloc,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.grey.shade300)),
@@ -41,19 +41,17 @@ class CartTileWidget extends StatelessWidget {
             children: [
               Text('\$${productDataModel.price}',
                   style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold)), 
+                      fontSize: 18, fontWeight: FontWeight.bold)),
               Row(
                 children: [
                   IconButton(
                       onPressed: () {
-                        cartBloc.add(CartItemAddToWishlistEvent(
-                            productDataModel: productDataModel));
+                        wishlistBloc.add(WishlistItemAddToCartEvent(wishlistedtem: productDataModel));
                       },
-                      icon: const Icon(Icons.favorite_border)),
+                      icon: const Icon(Icons.shopping_bag_outlined)),
                   IconButton(
                       onPressed: () {
-                        cartBloc.add(CartRemoveFromCartEvent(
-                            productDataModel: productDataModel));
+                        wishlistBloc.add(WishlistItemRemoveFromWishlistEvent(wishlistedItem:  productDataModel));
                       },
                       icon: const Icon(Icons.delete)),
                 ],

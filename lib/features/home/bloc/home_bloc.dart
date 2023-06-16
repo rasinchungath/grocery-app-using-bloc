@@ -16,6 +16,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeProductCartButtonClickedEvent>(homeProductCartButtonClickedEvent);
     on<HomeWishlistButtonNavigateEvent>(homeWishlistButtonNavigateEvent);
     on<HomeCartButtonNavigateEvent>(homeCartButtonNavigateEvent);
+    on<HomeNavigateToProductDetailEvent>(homeProductdetailNavigateEvent);
   }
 
   FutureOr<void> homeInitialEvent(
@@ -35,27 +36,28 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   FutureOr<void> homeProductWishlistButtonClickedEvent(
       HomeProductWishlistButtonClickedEvent event, Emitter<HomeState> emit) {
-    print('wishlist button clicked');
     wishlistItems.add(event.clickedProduct);
     emit(HomeProductItemWishlistedActionState());
   }
 
   FutureOr<void> homeProductCartButtonClickedEvent(
       HomeProductCartButtonClickedEvent event, Emitter<HomeState> emit) {
-    print('cart button clicked');
     cartItems.add(event.clickedProduct);
     emit(HomeProductItemCartedActionState());
   }
 
   FutureOr<void> homeWishlistButtonNavigateEvent(
       HomeWishlistButtonNavigateEvent event, Emitter<HomeState> emit) {
-    print('wishlist navigate button clicked');
     emit(HomeNavigateToWishlistPageActionState());
   }
 
   FutureOr<void> homeCartButtonNavigateEvent(
       HomeCartButtonNavigateEvent event, Emitter<HomeState> emit) {
-    print('cart navigate button clicked');
     emit(HomeNavigateToCartPageActionState());
+  }
+
+  FutureOr<void> homeProductdetailNavigateEvent(
+      HomeNavigateToProductDetailEvent event, Emitter<HomeState> emit) {
+    emit(HomeNavigateToProductDetailPageActonState(productDataModel: event.productDataModel));
   }
 }

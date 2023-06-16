@@ -27,11 +27,17 @@ class _CartState extends State<Cart> {
       ),
       body: BlocConsumer<CartBloc, CartState>(
         bloc: cartBloc,
-        listener: (context, state) {
-          // TODO: implement listener
-        },
         listenWhen: (previous, current) => current is CartActionState,
         buildWhen: (previous, current) => current is! CartActionState,
+        listener: (context, state) {
+          if (state is CartRemoveFromCartActionState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Item removed from cart')));
+          } else if (state is CartItemAddToWishlistActionState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Item added to wishlist')));
+          }
+        },
         builder: (context, state) {
           switch (state.runtimeType) {
             case CartSuccessState:
@@ -40,8 +46,9 @@ class _CartState extends State<Cart> {
                 itemCount: successState.cartItems.length,
                 itemBuilder: (context, index) {
                   return CartTileWidget(
-                      productDataModel: successState.cartItems[index],
-                      cartBloc: cartBloc);
+                    productDataModel: successState.cartItems[index],
+                    cartBloc: cartBloc,
+                  );
                 },
               );
             default:

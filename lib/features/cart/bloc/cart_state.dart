@@ -9,6 +9,12 @@ class CartInitial extends CartState {}
 
 class CartSuccessState extends CartState {
   final List<ProductDataModel> cartItems;
-
   CartSuccessState({required this.cartItems});
 }
+
+class CartRemoveFromCartActionState extends CartActionState{}
+
+class CartItemAddToWishlistActionState extends CartActionState{}
+
+
+
