@@ -1,9 +1,15 @@
 import 'package:bloc_example_1/features/home/models/home_product_data_model.dart';
 import 'package:flutter/material.dart';
+import '../bloc/details_bloc.dart';
 
 class DetailPageTile extends StatelessWidget {
   final ProductDataModel productDataModel;
-  const DetailPageTile({super.key, required this.productDataModel});
+  final DetailsBloc detailsBloc;
+  const DetailPageTile({
+    super.key,
+    required this.productDataModel,
+    required this.detailsBloc,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +18,6 @@ class DetailPageTile extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-         
           Container(
             height: 180,
             width: double.maxFinite,
@@ -37,12 +42,14 @@ class DetailPageTile extends StatelessWidget {
                 children: [
                   IconButton(
                       onPressed: () {
-                       
+                        detailsBloc.add(DetailItemAddToWishlistEvent(
+                            productDataModel: productDataModel));
                       },
                       icon: const Icon(Icons.favorite_border)),
                   IconButton(
                       onPressed: () {
-                      
+                        detailsBloc.add(DetailItemAddtoCartEvent(
+                            productDataModel: productDataModel));
                       },
                       icon: const Icon(Icons.shopping_bag_outlined)),
                 ],
